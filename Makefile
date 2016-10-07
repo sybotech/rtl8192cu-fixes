@@ -578,10 +578,11 @@ else
 
 export CONFIG_RTL8192CU = m
 
+default: modules
 all: modules
 
 modules:
-	$(MAKE) -C $(KDIR) M=$(shell pwd)  modules
+	$(MAKE) -C $(KDIR) M=$(shell pwd)
 
 strip:
 	$(CROSS_COMPILE)strip $(MODULE_NAME).ko --strip-unneeded
