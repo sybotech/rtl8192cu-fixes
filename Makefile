@@ -581,8 +581,8 @@ export CONFIG_RTL8192CU = m
 KDIR ?= $(KERNEL_SRC)
 SRC := $(shell pwd)
 
-default: modules
-all: modules
+#default: modules
+#all: modules
 
 all: 
 	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules
@@ -594,12 +594,12 @@ modules_install:
 #modules:
 #	$(MAKE) -C $(KDIR) M=$(shell pwd)
 
-strip:
-	$(CROSS_COMPILE)strip $(MODULE_NAME).ko --strip-unneeded
+#strip:
+#	$(CROSS_COMPILE)strip $(MODULE_NAME).ko --strip-unneeded
 
-install:
-	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
-	/sbin/depmod -a ${KVER}
+#install:
+#	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
+#	/sbin/depmod -a ${KVER}
 
 uninstall:
 	rm -f $(MODDESTDIR)/$(MODULE_NAME).ko
