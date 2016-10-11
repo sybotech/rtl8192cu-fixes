@@ -589,7 +589,7 @@ all:
 #install: modules_install
 
 modules_install:
-	make -C $(KDIR) M=$(SRC) modules_install
+	$(MAKE) -C $(KDIR) M=$(SRC) modules_install
 
 #modules:
 #	$(MAKE) -C $(KDIR) M=$(shell pwd)
