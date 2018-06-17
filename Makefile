@@ -72,7 +72,7 @@ CONFIG_WAKE_ON_WLAN = n
 #CONFIG_PLATFORM_ARM_SUNxI = n
 #CONFIG_PLATFORM_ARM_SUN6I = n
 
-CONFIG_DRVEXT_MODULE = n
+CONFIG_DRVEXT_MODULE = y
 
 export TopDIR ?= $(shell pwd)
 
@@ -291,17 +291,28 @@ else
 
 export CONFIG_RTL8192CU = m
 
-all: modules
+KDIR ?= $(KERNEL_SRC)
+SRC := $(shell pwd)
 
-modules:
-	$(MAKE) ARCH=$(ARCH) CROSS_COMPILE=$(CROSS_COMPILE) -C $(KSRC) M=$(shell pwd)  modules
+#default: modules
+#all: modules
 
-strip:
-	$(CROSS_COMPILE)strip $(MODULE_NAME).ko --strip-unneeded
+all: 
+	$(MAKE) -C $(KERNEL_SRC) M=$(SRC) modules
+#install: modules_install
 
-install:
-	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
-	/sbin/depmod -a ${KVER}
+modules_install:
+	$(MAKE) -C $(KDIR) M=$(SRC) modules_install
+
+#modules:
+#	$(MAKE) -C $(KDIR) M=$(shell pwd)
+
+#strip:
+#	$(CROSS_COMPILE)strip $(MODULE_NAME).ko --strip-unneeded
+
+#install:
+#	install -p -m 644 $(MODULE_NAME).ko  $(MODDESTDIR)
+#	/sbin/depmod -a ${KVER}
 
 uninstall:
 	rm -f $(MODDESTDIR)/$(MODULE_NAME).ko
